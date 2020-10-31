@@ -1,0 +1,31 @@
+{
+  "name": "ayacoo/flaschenpost-scraper",
+  "type": "library",
+  "version": "0.8.0",
+  "description": "Library to parse the current offers from www.flaschenpost.de",
+  "license": "GPL-2.0-or-later",
+  "homepage": "https://www.ayacoo.de",
+  "authors": [
+    {
+      "name": "Guido Schmechel",
+      "email": "info@ayacoo.de"
+    }
+  ],
+  "require": {
+    "php": ">=7.2",
+    "guzzlehttp/guzzle": "^7.2"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9"
+  },
+  "autoload": {
+    "psr-4": {
+      "Ayacoo\\Flaschenpost\\": "Classes/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Ayacoo\\Flaschenpost\\Tests\\": "Tests/"
+    }
+  }
+}
