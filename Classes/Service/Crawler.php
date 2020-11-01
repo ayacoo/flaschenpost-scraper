@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace Ayacoo\Flaschenpost\Service;
 
-use Ayacoo\Flaschenpost\Converter\UnicodeConverter;
 use Ayacoo\Flaschenpost\Model\Product;
 use DOMDocument;
 use DOMNodeList;
@@ -16,16 +15,6 @@ class Crawler
     protected const ONE_WAY = 'EINWEG';
 
     protected const MULTI_WAY = 'MEHRWEG';
-
-    /**
-     * @var UnicodeConverter
-     */
-    private UnicodeConverter $unicodeConverter;
-
-    public function __construct()
-    {
-        $this->unicodeConverter = new UnicodeConverter();
-    }
 
     /**
      * @param string $postal
