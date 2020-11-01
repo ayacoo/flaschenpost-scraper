@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Ayacoo\Flaschenpost\Service;
 
+use Ayacoo\Flaschenpost\Converter\UnicodeConverter;
 use Ayacoo\Flaschenpost\Model\Product;
 use DOMDocument;
 use DOMNodeList;
@@ -15,6 +16,16 @@ class Crawler
     protected const ONE_WAY = 'EINWEG';
 
     protected const MULTI_WAY = 'MEHRWEG';
+
+    /**
+     * @var UnicodeConverter
+     */
+    private UnicodeConverter $unicodeConverter;
+
+    public function __construct()
+    {
+        $this->unicodeConverter = new UnicodeConverter();
+    }
 
     /**
      * @param string $postal
@@ -96,11 +107,6 @@ class Crawler
                     $product->setLink('https://www.flaschenpost.de' . $linkDom->item(0)->getAttribute('href'));
                 }
 
-                $idDom = $xpath->query('//*[@class="cms-offer-element--image"]/img');
-                if ($imageDom->item(0)) {
-                    $product->setImage($imageDom->item(0)->getAttribute('src'));
-                }
-
                 $storage = $this->addProductToStorage($product, $storage);
             }
         }
@@ -108,9 +114,14 @@ class Crawler
         return $storage;
     }
 
-    protected function handleDomElement(DOMDocument $doc, DOMNodeList $element)
+    /**
+     * @param DOMDocument $doc
+     * @param DOMNodeList $element
+     * @return string
+     */
+    protected function handleDomElement(DOMDocument $doc, DOMNodeList $element): string
     {
-        return utf8_decode($this->unicodeDecode($doc->saveHTML($element->item(0)->firstChild)));
+        return utf8_decode($this->unicodeConverter->unicodeDecode($doc->saveHTML($element->item(0)->firstChild)));
     }
 
     /**
@@ -136,26 +147,6 @@ class Crawler
         }
 
         return false;
-    }
-
-    //see https://gist.github.com/aeurielesn/1116358
-
-    /**
-     * @param array $match
-     * @return string
-     */
-    protected function replaceUnicodeEscapeSequence(array $match): string
-    {
-        return mb_convert_encoding(pack('H*', $match[1]), 'UTF-8', 'UCS-2BE');
-    }
-
-    /**
-     * @param string $value
-     * @return string|string[]|null
-     */
-    protected function unicodeDecode(string $value)
-    {
-        return preg_replace_callback('/\\\\u([0-9a-f]{4})/i', [$this, 'replaceUnicodeEscapeSequence'], $value);
     }
 
     /**
