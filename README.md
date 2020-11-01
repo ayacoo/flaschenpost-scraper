@@ -1,8 +1,3 @@
-# TODO
-- Parser für einzelne Seiten (nur Angebote oder komplette Seite)
-- Github Actions
-- Packagist Eintrag
-
 # Was ist das hier?
 
 Der Flaschenpost Scraper ist ein Übungsprojekt und holt sich die aktuellen Angebote/Empfehlungen von https://www.flaschenpost.de Es dient dazu die Themen Github, Packagist und Workflows besser kennen zu lernen. Wer möchte kann die Library beliebig erweitern/nutzen, ganz im Sinne von Open Source. Ein kommerzieller Einsatz müsste natürlich mit Flaschenpost geklärt werden! 
@@ -34,3 +29,7 @@ echo json_encode($products);
 - selbstgebaute Infomailings mit den Angeboten
 - Preisvergleich mit anderen Shops
 - Datenquelle für Bots z.B. für Telegram
+
+# TODO
+- Parser für einzelne Seiten (nur Angebote oder komplette Seite)
+- Filtermöglichkeiten für Kategorien oder Marken
