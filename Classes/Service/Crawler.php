@@ -121,7 +121,7 @@ class Crawler
      */
     protected function handleDomElement(DOMDocument $doc, DOMNodeList $element): string
     {
-        return utf8_decode($this->unicodeConverter->unicodeDecode($doc->saveHTML($element->item(0)->firstChild)));
+        return utf8_decode($doc->saveHTML($element->item(0)->firstChild));
     }
 
     /**
